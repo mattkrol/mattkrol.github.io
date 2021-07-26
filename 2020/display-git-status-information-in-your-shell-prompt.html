@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Matt Krol - Display git status information in your shell&nbsp;prompt!</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="/theme/style.css">
+        <link href="https://mattkrol.me/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Matt Krol - Atom Feed" />
+
+    </head>
+    <body>
+        <div class="box">
+            <header>
+                <h1 id="sitename">Matt Krol</h1>
+                <p>Electrical Engineer, Bassist, Composer</p>
+            </header>
+            <nav><p>
+                <a href="https://mattkrol.me/">Blog</a>&nbsp;
+                <a href="https://mattkrol.me/about.html">About</a>&nbsp;
+                <a href="https://mattkrol.me/links.html">Links</a>&nbsp;
+                <a href="https://mattkrol.me/resume.html">Resume</a>&nbsp;
+            </p></nav>
+            <hr>
+<h1>Display git status information in your shell&nbsp;prompt!</h1>
+<time datetime="2020-08-01T00:00:00-05:00">
+    Date: Sat 01 August 2020
+</time>
+<div>
+    Categories: <a href="https://mattkrol.me/category/programming.html">Programming</a>
+</div>
+<div>
+    Tags:
+    <a href="https://mattkrol.me/tag/bash.html">Bash</a>
+    <a href="https://mattkrol.me/tag/git.html">Git</a>
+</div>
+<div>
+    <p>I have been using git frequently these days. Recently, I have been on the hunt for a script to display git status information in my bash prompt. This way I can easily see important git repository information in my shell prompt without having to type git status all of the time which would save frequent git users like myself a lot of time. However, many of the existing solutions that I found were either too simplistic or complete overkill for the task at hand, so I decided to create my&nbsp;own.</p>
+<p>My implementation prints the name of the current git branch along with some other&nbsp;indicators:</p>
+<ul>
+<li><code>'*'</code>: the repository is&nbsp;dirty</li>
+<li><code>'?'</code>: untracked files exist in the&nbsp;repository</li>
+<li><code>'='</code>: the local branch is in sync with the&nbsp;remote</li>
+<li><code>'&lt;'</code>: the local branch is behind of the&nbsp;remote</li>
+<li><code>'&gt;'</code>: the local branch is ahead of the&nbsp;remote</li>
+<li><code>'&lt;&gt;'</code>: the local branch has diverged from the&nbsp;remote</li>
+</ul>
+<p>The internals of the script take advantage of the git porcelain command and some relatively simple awk to parse its output. I felt that awk was the right tool for the job since awk made it easy to combine the grep and sed operations that I needed to use into one command. I also avoided the use of bash specific shell scripting features in effort to keep the script <span class="caps">POSIX</span> compliant, so given that your system has a <span class="caps">POSIX</span> compliant shell and awk, you should be able to use the script without any&nbsp;problems.</p>
+<div class="highlight"><pre><span></span><code>git_status<span class="o">()</span> <span class="o">{</span>
+    <span class="nv">STATUS</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>git status --branch --porcelain<span class="o">=</span>v2 <span class="m">2</span>&gt;/dev/null<span class="k">)</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$STATUS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">return</span>
+    <span class="k">fi</span>
+    <span class="nv">BRANCH</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$STATUS</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;$2 == &quot;branch.head&quot; { print $3 }&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="nv">DIRTY</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$STATUS</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;$1 ~ /[^#?]+/ { print $0 }&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$DIRTY</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">DIRTY_IND</span><span class="o">=</span><span class="s1">&#39;*&#39;</span>
+    <span class="k">else</span>
+        <span class="nv">DIRTY_IND</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+    <span class="k">fi</span>
+    <span class="nv">UNTRACKED</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$STATUS</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;$1 ~ /\?+/ { print $0 }&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$UNTRACKED</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nv">UNTRACKED_IND</span><span class="o">=</span><span class="s1">&#39;?&#39;</span>
+    <span class="k">else</span>
+        <span class="nv">UNTRACKED_IND</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+    <span class="k">fi</span>
+    <span class="nv">REMOTE</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span><span class="nb">echo</span> <span class="s2">&quot;</span><span class="nv">$STATUS</span><span class="s2">&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;$2 == &quot;branch.ab&quot; { gsub(/[+-]/, &quot;&quot;); print $3,$4 }&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+    <span class="k">case</span> <span class="s2">&quot;</span><span class="nv">$REMOTE</span><span class="s2">&quot;</span> <span class="k">in</span>
+        <span class="s1">&#39;&#39;</span><span class="o">)</span>
+            <span class="nv">REMOTE_IND</span><span class="o">=</span><span class="s1">&#39;&#39;</span> <span class="p">;;</span>
+        <span class="s1">&#39;0 0&#39;</span><span class="o">)</span>
+            <span class="nv">REMOTE_IND</span><span class="o">=</span><span class="s1">&#39;=&#39;</span> <span class="p">;;</span>
+        <span class="s1">&#39;0 &#39;</span>*<span class="o">)</span>
+            <span class="nv">REMOTE_IND</span><span class="o">=</span><span class="s1">&#39;&lt;&#39;</span> <span class="p">;;</span>
+        *<span class="s1">&#39; 0&#39;</span><span class="o">)</span>
+            <span class="nv">REMOTE_IND</span><span class="o">=</span><span class="s1">&#39;&gt;&#39;</span> <span class="p">;;</span>
+        *<span class="o">)</span>
+            <span class="nv">REMOTE_IND</span><span class="o">=</span><span class="s1">&#39;&lt;&gt;&#39;</span> <span class="p">;;</span>
+    <span class="k">esac</span>
+    <span class="nv">INDICATORS</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">UNTRACKED_IND</span><span class="si">}${</span><span class="nv">DIRTY_IND</span><span class="si">}${</span><span class="nv">REMOTE_IND</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="k">if</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$BRANCH</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$INDICATORS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> -n <span class="s2">&quot; (</span><span class="si">${</span><span class="nv">BRANCH</span><span class="si">}</span><span class="s2"> </span><span class="si">${</span><span class="nv">INDICATORS</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">elif</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$BRANCH</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$INDICATORS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> -n <span class="s2">&quot; (</span><span class="si">${</span><span class="nv">BRANCH</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">elif</span> <span class="o">[</span> -z <span class="s2">&quot;</span><span class="nv">$BRANCH</span><span class="s2">&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> ! -z <span class="s2">&quot;</span><span class="nv">$INDICATORS</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> -n <span class="s2">&quot; (</span><span class="si">${</span><span class="nv">INDICATORS</span><span class="si">}</span><span class="s2">)&quot;</span>
+    <span class="k">fi</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>Here is a snippet of my .bashrc file. I like to keep things tidy by checking to see if git is installed before using the <span class="caps">PS1</span> loaded with the git status&nbsp;information.</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span> <span class="nv">GIT_PS1</span><span class="o">=</span><span class="s2">&quot;\[\033[1;32m\]\u@\h \[\033[1;33m\]\w\[\033[1;35m\]\$(git_status)\[\033[0m\]\n\$ &quot;</span>
+<span class="nb">export</span> <span class="nv">DEFAULT_PS1</span><span class="o">=</span><span class="s1">&#39;\[\033[1;32m\]\u@\h \[\033[1;33m\]\w\[\033[0m\]\n\$ &#39;</span>
+
+<span class="k">if</span> <span class="o">[</span> -x <span class="s2">&quot;</span><span class="k">$(</span><span class="nb">command</span> -v git<span class="k">)</span><span class="s2">&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="nv">$GIT_PS1</span>
+<span class="k">else</span>
+    <span class="nb">export</span> <span class="nv">PS1</span><span class="o">=</span><span class="nv">$DEFAULT_PS1</span>
+<span class="k">fi</span>
+</code></pre></div>
+
+<p>Cheers! I hope you enjoy the&nbsp;script.</p>
+</div>
+            <hr>
+            <footer>
+                <p>&copy; Copyright 2021 Matt Krol. This website is powered by <a href="https://getpelican.com/">Pelican</a> and hosted via <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

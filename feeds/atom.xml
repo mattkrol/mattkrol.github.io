@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Matt Krol</title><link href="https://mattkrol.me/" rel="alternate"></link><link href="https://mattkrol.me/feeds/atom.xml" rel="self"></link><id>https://mattkrol.me/</id><updated>2021-01-30T00:00:00-05:00</updated><subtitle>Electrical Engineer, Bassist, Composer</subtitle><entry><title>Maximizing the Rayleigh Quotient</title><link href="https://mattkrol.me/2021/maximizing-the-rayleigh-quotient.html" rel="alternate"></link><published>2021-01-30T00:00:00-05:00</published><updated>2021-01-30T00:00:00-05:00</updated><author><name>Matt Krol</name></author><id>tag:mattkrol.me,2021-01-30:/2021/maximizing-the-rayleigh-quotient.html</id><summary type="html">&lt;p&gt;The rayleigh quotient maximization problem naturally occurs in many disciplines&amp;mdash;machine learning, statistics, quantum mechanics, and portfolio optimization just to name a few. Although the solution of this problem is widely known, many texts state the solution without offering any proof. In this post, I will present proof of the rayleigh quotient maximization problem solution that will hopefully satisfy the most inquisitive of&amp;nbsp;readers!&lt;/p&gt;</summary><content type="html">&lt;p&gt;The rayleigh quotient maximization problem naturally occurs in many disciplines&amp;mdash;machine learning, statistics, quantum mechanics, and portfolio optimization just to name a few. Although the solution of this problem is widely known, many texts state the solution without offering any proof. In this post, I will present proof of the rayleigh quotient maximization problem solution that will hopefully satisfy the most inquisitive of&amp;nbsp;readers!&lt;/p&gt;
+&lt;p&gt;The following proof will use only basic facts from linear algebra. However, one could argue that using lagrange multipliers would provide a more concise proof. Although this may be true, I hope that readers will still find this proof&amp;nbsp;helpful.&lt;/p&gt;
+&lt;p&gt;Let &lt;span class="math"&gt;\(A,B\in\mathbb{R}^{d\times d}\)&lt;/span&gt; be two symmetric positive semi-definite matrices and &lt;span class="math"&gt;\(x\in\mathbb{R}^{d}\)&lt;/span&gt; be a column vector. Additionally, we will require &lt;span class="math"&gt;\(B\)&lt;/span&gt; to be invertible. We will begin the proof by stating the rayleigh quotient maximization&amp;nbsp;problem
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{problem-statement}
+    \mathop{\max}\limits_{x}\frac{x^TAx}{x^TBx}.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+We will show that the rayleigh quotient problem in (\ref{problem-statement}) is maximized whenever &lt;span class="math"&gt;\(x\)&lt;/span&gt; is collinear to the eigenvector of &lt;span class="math"&gt;\(B^{-1}A\)&lt;/span&gt; that corresponds its largest&amp;nbsp;eigenvalue.&lt;/p&gt;
+&lt;p&gt;Since &lt;span class="math"&gt;\(B\)&lt;/span&gt; is symmetric, we know that there exists an orthonormal matrix &lt;span class="math"&gt;\(P\in\mathbb{R}^{d\times d}\)&lt;/span&gt; and a diagonal matrix &lt;span class="math"&gt;\(D\in\mathbb{R}^{d\times d}\)&lt;/span&gt; such that &lt;span class="math"&gt;\(B=PDP^T\)&lt;/span&gt;. Furthermore, since &lt;span class="math"&gt;\(B\)&lt;/span&gt; is also invertible and positive semi-definite, we know that the diagonal entries of &lt;span class="math"&gt;\(D\)&lt;/span&gt;, i.e., the eigenvalues of &lt;span class="math"&gt;\(B\)&lt;/span&gt;, are positive and non-zero. Consequently, the matrix &lt;span class="math"&gt;\(B^{-\frac{1}{2}}\)&lt;/span&gt; exists, and we can use the invertible&amp;nbsp;substitution 
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{sub}
+    x=B^{-\frac{1}{2}}w
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+to&amp;nbsp;yield
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{sub-problem}
+    \mathop{\max}\limits_{x}\frac{x^TAx}{x^TBx}=\mathop{\max}\limits_{w}\frac{w^TB^{-\frac{1}{2}}AB^{-\frac{1}{2}}w}{w^Tw}.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+Now we can observe that (\ref{sub-problem}) is invariant to the norm of &lt;span class="math"&gt;\(w\)&lt;/span&gt;,&amp;nbsp;so
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{sub-sub-problem}
+    \mathop{\max}\limits_{w}\frac{w^TB^{-\frac{1}{2}}AB^{-\frac{1}{2}}w}{w^Tw}=\mathop{\max}\limits_{\lVert w\rVert_2=1}w^TB^{-\frac{1}{2}}AB^{-\frac{1}{2}}w.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;Since the matrices &lt;span class="math"&gt;\(B^{-\frac{1}{2}}\)&lt;/span&gt; and &lt;span class="math"&gt;\(A\)&lt;/span&gt; are symmetric, the product &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; is also clearly symmetric. Hence, &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; can be orthogonally diagonalized by an orthonormal matrix &lt;span class="math"&gt;\(V\)&lt;/span&gt; and a diagonal matrix &lt;span class="math"&gt;\(\Sigma\)&lt;/span&gt; such that &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}=V\Sigma V^T\)&lt;/span&gt;,&amp;nbsp;and
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \mathop{\max}\limits_{\lVert w\rVert_2=1}w^TB^{-\frac{1}{2}}AB^{-\frac{1}{2}}w=\mathop{\max}\limits_{\lVert w\rVert_2=1}w^TV\Sigma V^Tw.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+Let &lt;span class="math"&gt;\(\lambda_i\in\mathbb{R}\)&lt;/span&gt; and &lt;span class="math"&gt;\(v_i\in\mathbb{R^{d}}\)&lt;/span&gt; with &lt;span class="math"&gt;\(i\in\{1,2,\dots,d\}\)&lt;/span&gt; be the eigenvalues and eigenvectors of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; respectively&amp;nbsp;with
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{align}
+    V&amp;amp;=\begin{bmatrix}v_1 &amp;amp; v_2 &amp;amp; \dots &amp;amp; v_d\end{bmatrix}\\
+    \Sigma&amp;amp;=\operatorname{diag}\{\lambda_1,\lambda_2,\dots,\lambda_d\}.
+\end{align}&lt;/div&gt;
+&lt;p&gt;
+Now we can rewrite &lt;span class="math"&gt;\(w^TV\Sigma V^Tw\)&lt;/span&gt; as a summation,&amp;nbsp;so
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \mathop{\max}\limits_{\lVert w\rVert_2=1}w^TV\Sigma V^Tw=\mathop{\max}\limits_{\lVert w\rVert_2=1}\sum_{i=1}^{d}\left(w^Tv_i\right)^2\lambda_i\label{summation}.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+Since &lt;span class="math"&gt;\(V\)&lt;/span&gt; is orthonormal, we have &lt;span class="math"&gt;\(w^TVV^Tw=1\)&lt;/span&gt;, so the summation &lt;span class="math"&gt;\(\sum_{i=1}^{d}\left(w^Tv_i\right)^2=1\)&lt;/span&gt; for all &lt;span class="math"&gt;\(w\)&lt;/span&gt; with &lt;span class="math"&gt;\(\lVert w\rVert_2=1\)&lt;/span&gt;. Additionally, since &lt;span class="math"&gt;\(A\)&lt;/span&gt; and &lt;span class="math"&gt;\(B^{-\frac{1}{2}}\)&lt;/span&gt; are symmetric and positive semi-definite, &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; is also symmetric and positive semi-definite, but not necessarily invertible. Thus, we conclude that all &lt;span class="math"&gt;\(\lambda_i\ge 0\)&lt;/span&gt;. Since there will be at least one non-zero eigenvalue, suppose that &lt;span class="math"&gt;\(\lambda^*=\lambda_d\)&lt;/span&gt; is the largest eigenvalue of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt;,&amp;nbsp;then
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{ortho}
+    \frac{\lambda_1}{\lambda^*}\left(w^Tv_1\right)^2+\frac{\lambda_2}{\lambda^*}\left(w^Tv_2\right)^2+\dots+\frac{\lambda_{d-1}}{\lambda^*}\left(w^Tv_{d-1}\right)^2+\left(w^Tv_d\right)^2\leq 1.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;
+It follows from (\ref{ortho})&amp;nbsp;that
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{equation}
+    \label{almost-done}
+    \sum_{i=1}^d\lambda_i\left(w^Tv_i\right)^2\leq \lambda^*.
+\end{equation}&lt;/div&gt;
+&lt;p&gt;Clearly, &lt;span class="math"&gt;\(\sum_{i=1}^d\left(w^Tv_i\right)^2\lambda_i=\lambda^*\)&lt;/span&gt; if and only if &lt;span class="math"&gt;\(w\)&lt;/span&gt; is collinear to the eigenvector of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; that corresponds to the largest eigenvalue. Hence, under these conditions, we have maximized&amp;nbsp;(\ref{sub-problem}).&lt;/p&gt;
+&lt;p&gt;Using the substitution in (\ref{sub}), a solution to (\ref{sub-problem}) can be translated into a solution to (\ref{problem-statement}). Suppose that &lt;span class="math"&gt;\(w\)&lt;/span&gt; and &lt;span class="math"&gt;\(\lambda\)&lt;/span&gt; are set to be any eigenpair of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt;,&amp;nbsp;then
+&lt;/p&gt;
+&lt;div class="math"&gt;\begin{align}
+    B^{-\frac{1}{2}}AB^{-\frac{1}{2}}w&amp;amp;=\lambda w\\
+    B^{-\frac{1}{2}}AB^{-\frac{1}{2}}B^{\frac{1}{2}}x&amp;amp;=\lambda B^{\frac{1}{2}}x\\
+    B^{-1}Ax&amp;amp;=\lambda x.
+\end{align}&lt;/div&gt;
+&lt;p&gt;
+We have just shown that any eigenvalue of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; is also an eigenvalue of &lt;span class="math"&gt;\(B^{-1}A\)&lt;/span&gt;. Since the later two matrices have the same rank, which is simply equal to the rank of &lt;span class="math"&gt;\(A\)&lt;/span&gt;, we can conclude that they have the same set of eigenvalues. Accordingly, (\ref{sub}) gives us a one-to-one correspondence between their eigenvectors. Thus, the maximum eigenvalue of &lt;span class="math"&gt;\(B^{-\frac{1}{2}}AB^{-\frac{1}{2}}\)&lt;/span&gt; is also the maximum eigenvalue of &lt;span class="math"&gt;\(B^{-1}A\)&lt;/span&gt;. So if &lt;span class="math"&gt;\(w^*\)&lt;/span&gt; is a solution to (\ref{sub-problem}), then &lt;span class="math"&gt;\(x^*=B^{-\frac{1}{2}}w^*\)&lt;/span&gt; is a solution to (\ref{problem-statement}). Hence, (\ref{problem-statement}) is maximized when &lt;span class="math"&gt;\(x\)&lt;/span&gt; is collinear to the eigenvector of &lt;span class="math"&gt;\(B^{-1}A\)&lt;/span&gt; that corresponds to its largest eigenvector. This completes the&amp;nbsp;proof!&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/latest.js?config=TeX-AMS-MML_HTMLorMML';
+
+    var configscript = document.createElement('script');
+    configscript.type = 'text/x-mathjax-config';
+    configscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'none' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        availableFonts: ['STIX', 'TeX']," +
+        "        preferredFont: 'STIX'," +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(configscript);
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</content><category term="Math"></category><category term="Optimization"></category><category term="Proofs"></category></entry><entry><title>Display git status information in your shell prompt!</title><link href="https://mattkrol.me/2020/display-git-status-information-in-your-shell-prompt.html" rel="alternate"></link><published>2020-08-01T00:00:00-05:00</published><updated>2020-08-01T00:00:00-05:00</updated><author><name>Matt Krol</name></author><id>tag:mattkrol.me,2020-08-01:/2020/display-git-status-information-in-your-shell-prompt.html</id><summary type="html">&lt;p&gt;I have been using git frequently these days. Recently, I have been on the hunt for a script to display git status information in my bash prompt. This way I can easily see important git repository information in my shell prompt without having to type git status all of the time which would save frequent git users like myself a lot of time. However, many of the existing solutions that I found were either too simplistic or complete overkill for the task at hand, so I decided to create my&amp;nbsp;own.&lt;/p&gt;</summary><content type="html">&lt;p&gt;I have been using git frequently these days. Recently, I have been on the hunt for a script to display git status information in my bash prompt. This way I can easily see important git repository information in my shell prompt without having to type git status all of the time which would save frequent git users like myself a lot of time. However, many of the existing solutions that I found were either too simplistic or complete overkill for the task at hand, so I decided to create my&amp;nbsp;own.&lt;/p&gt;
+&lt;p&gt;My implementation prints the name of the current git branch along with some other&amp;nbsp;indicators:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;'*'&lt;/code&gt;: the repository is&amp;nbsp;dirty&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'?'&lt;/code&gt;: untracked files exist in the&amp;nbsp;repository&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'='&lt;/code&gt;: the local branch is in sync with the&amp;nbsp;remote&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'&amp;lt;'&lt;/code&gt;: the local branch is behind of the&amp;nbsp;remote&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'&amp;gt;'&lt;/code&gt;: the local branch is ahead of the&amp;nbsp;remote&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;'&amp;lt;&amp;gt;'&lt;/code&gt;: the local branch has diverged from the&amp;nbsp;remote&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The internals of the script take advantage of the git porcelain command and some relatively simple awk to parse its output. I felt that awk was the right tool for the job since awk made it easy to combine the grep and sed operations that I needed to use into one command. I also avoided the use of bash specific shell scripting features in effort to keep the script &lt;span class="caps"&gt;POSIX&lt;/span&gt; compliant, so given that your system has a &lt;span class="caps"&gt;POSIX&lt;/span&gt; compliant shell and awk, you should be able to use the script without any&amp;nbsp;problems.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;git_status&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="nv"&gt;STATUS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;git status --branch --porcelain&lt;span class="o"&gt;=&lt;/span&gt;v2 &lt;span class="m"&gt;2&lt;/span&gt;&amp;gt;/dev/null&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$STATUS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="nv"&gt;BRANCH&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$STATUS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;$2 == &amp;quot;branch.head&amp;quot; { print $3 }&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="nv"&gt;DIRTY&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$STATUS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;$1 ~ /[^#?]+/ { print $0 }&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$DIRTY&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nv"&gt;DIRTY_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;*&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+        &lt;span class="nv"&gt;DIRTY_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="nv"&gt;UNTRACKED&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$STATUS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;$1 ~ /\?+/ { print $0 }&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$UNTRACKED&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nv"&gt;UNTRACKED_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;?&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;
+        &lt;span class="nv"&gt;UNTRACKED_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+    &lt;span class="nv"&gt;REMOTE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$STATUS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; awk &lt;span class="s1"&gt;&amp;#39;$2 == &amp;quot;branch.ab&amp;quot; { gsub(/[+-]/, &amp;quot;&amp;quot;); print $3,$4 }&amp;#39;&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;case&lt;/span&gt; &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$REMOTE&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;0 0&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;=&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+        &lt;span class="s1"&gt;&amp;#39;0 &amp;#39;&lt;/span&gt;*&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+        *&lt;span class="s1"&gt;&amp;#39; 0&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+        *&lt;span class="o"&gt;)&lt;/span&gt;
+            &lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;&amp;lt;&amp;gt;&amp;#39;&lt;/span&gt; &lt;span class="p"&gt;;;&lt;/span&gt;
+    &lt;span class="k"&gt;esac&lt;/span&gt;
+    &lt;span class="nv"&gt;INDICATORS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;UNTRACKED_IND&lt;/span&gt;&lt;span class="si"&gt;}${&lt;/span&gt;&lt;span class="nv"&gt;DIRTY_IND&lt;/span&gt;&lt;span class="si"&gt;}${&lt;/span&gt;&lt;span class="nv"&gt;REMOTE_IND&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$BRANCH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$INDICATORS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; (&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;BRANCH&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt; &lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;INDICATORS&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;)&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$BRANCH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$INDICATORS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; (&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;BRANCH&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;)&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;elif&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$BRANCH&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; ! -z &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$INDICATORS&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+        &lt;span class="nb"&gt;echo&lt;/span&gt; -n &lt;span class="s2"&gt;&amp;quot; (&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;INDICATORS&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;)&amp;quot;&lt;/span&gt;
+    &lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is a snippet of my .bashrc file. I like to keep things tidy by checking to see if git is installed before using the &lt;span class="caps"&gt;PS1&lt;/span&gt; loaded with the git status&amp;nbsp;information.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;code&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;GIT_PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;\[\033[1;32m\]\u@\h \[\033[1;33m\]\w\[\033[1;35m\]\$(git_status)\[\033[0m\]\n\$ &amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;DEFAULT_PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;\[\033[1;32m\]\u@\h \[\033[1;33m\]\w\[\033[0m\]\n\$ &amp;#39;&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt; -x &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;command&lt;/span&gt; -v git&lt;span class="k"&gt;)&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt; &lt;span class="o"&gt;]&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="k"&gt;then&lt;/span&gt;
+    &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$GIT_PS1&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;
+    &lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;PS1&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;$DEFAULT_PS1&lt;/span&gt;
+&lt;span class="k"&gt;fi&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Cheers! I hope you enjoy the&amp;nbsp;script.&lt;/p&gt;</content><category term="Programming"></category><category term="Bash"></category><category term="Git"></category></entry></feed>

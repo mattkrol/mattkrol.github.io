@@ -1,0 +1,47 @@
+@import "pygment.css";
+
+body {
+    margin: 10px;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #002b36;
+    color: #839496;
+    -webkit-text-size-adjust: none;
+}
+
+.box {
+    max-width: 940px;
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1, h2, h3, h4, h5, h6 { color: #93a1a1; }
+
+#sitename {
+    margin: 0;
+    padding: 0;
+    font-size: 2.5em;
+}
+
+hr { border: 1px solid #93a1a1; }
+
+a:link { color: #859900; }
+
+a:visited { color: #859900; }
+
+a:hover { color: #b58900; }
+
+a:active { color: #b58900; }
+
+a.current { color: #b58900; }
+
+.highlight pre {
+    margin: 0;
+    padding: 0;
+}
+
+.highlight {
+    overflow-x: auto;
+    padding: 15px;
+}
