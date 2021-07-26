@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ SITENAME }} - Archive{% endblock %}
+{% block content %}
+<h1>Archives</h1>
+<table>
+    {% for article in dates %}
+    <tr>
+        <td>{{ article.date|strftime('%Y-%m-%d') }}</td>
+        <td><a href="{{ SITEURL }}/{{ article.url }}">{{ article.title }}</a></td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="{% block html_lang %}{{ DEFAULT_LANG }}{% endblock html_lang %}">
+    <head>
+        {% block head %}
+        <title>{% block title %}{{ SITENAME }}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8" />
+        {% if GOOGLE_ANALYTICS %}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{GOOGLE_ANALYTICS}}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', '{{GOOGLE_ANALYTICS}}');
+        </script>
+        {% endif %}
+        <link rel="stylesheet" type="text/css" href="/theme/style.css">
+        {% if FEED_ALL_ATOM %}
+        <link href="{{ FEED_DOMAIN }}/{% if FEED_ALL_ATOM_URL %}{{ FEED_ALL_ATOM_URL }}{% else %}{{ FEED_ALL_ATOM }}{% endif %}" type="application/atom+xml" rel="alternate" title="{{ SITENAME }} - Atom Feed" />
+        {% endif %}
+        {% endblock head %}
+    </head>
+    <body>
+        <div class="box">
+            <header>
+                <h1 id="sitename">{{ SITENAME }}</h1>
+                {% if SITESUBTITLE %}
+                <p>{{ SITESUBTITLE }}</p>
+                {% endif %}
+            </header>
+            <nav><p>
+                <a href="{{ SITEURL }}/"{% if output_file == 'index.html' %} class="current"{% endif %}>Blog</a>&nbsp;
+                {% for title, link in MENUITEMS %}
+                <a href="{{ link }}"{% if link == output_file %} class="current"{% endif %}>{{ title }}</a>&nbsp;
+                {% endfor %}
+                {% if DISPLAY_PAGES_ON_MENU %}
+                {% for p in pages %}
+                <a href="{{ SITEURL }}/{{ p.url }}"{% if p == page %} class="current"{% endif %}>{{ p.title }}</a>&nbsp;
+                {% endfor %}
+                {% endif %}
+                {% if DISPLAY_CATEGORIES_ON_MENU %}
+                {% for cat, null in categories %}
+                <a href="{{ SITEURL }}/{{ cat.url }}"{% if cat == category %} class="current"{% endif %}>{{ cat }}</a>&nbsp;
+                {% endfor %}
+                {% endif %}
+            </p></nav>
+            <hr>
+            {% block content %}
+            {% endblock %}
+            <hr>
+            <footer>
+                <p>&copy; Copyright {{ CURRENTYEAR }} Matt Krol. This website is powered by <a href="https://getpelican.com/">Pelican</a> and hosted via <a href="https://pages.github.com/">GitHub Pages</a>.</p>
+            </footer>
+        </div>
+    </body>
+</html>

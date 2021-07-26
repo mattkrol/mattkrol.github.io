@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+{% if page.mathjax %}
+<script>window.MathJax = { tex: { tags: 'ams' } };</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endif %}
+{% endblock %}
+
+{% block title %}{{ SITENAME }} - {{ page.title }}{%endblock%}
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    {{ page.content }}
+    {% if page.modified %}
+    <p>Last Update: {{ page.locale_modified }}</p>
+    {% endif %}
+{% endblock %}
