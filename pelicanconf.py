@@ -50,7 +50,7 @@ ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
 DIRECT_TEMPLATES = ['index', 'categories', 'tags', 'archives']
 
 # Static paths for images, pdfs, etc.
-STATIC_PATHS = ['images', 'pdfs', 'extra/robots.txt']
+STATIC_PATHS = ['images', 'extra/robots.txt']
 
 EXTRA_PATH_METADATA = {
     'extra/robots.txt' : { 'path' : 'robots.txt' }
