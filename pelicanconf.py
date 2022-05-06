@@ -5,7 +5,7 @@ from datetime import date
 # Basic settings.
 AUTHOR = 'Matt Krol'
 SITENAME = 'Matt Krol'
-SITESUBTITLE = 'Electrical Engineer, Bassist, Composer'
+SITESUBTITLE = 'Ph.D. Student, Electrical Engineer, Bassist'
 SITEURL = ''
 TIMEZONE = 'EST'
 PATH = 'content'
