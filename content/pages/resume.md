@@ -2,8 +2,8 @@ Title: Resume
 
 ## Education
 
-* Ph.D., Electrical and Computer Engineering, [Rochester Institute of Technology](https://www.rit.edu/), 08/2022--Present (in-progress)
 * B.S./M.S., Electrical Engineering, [Rochester Institute of Technology](https://www.rit.edu/), 08/2019--08/2022
+* Coursework, Computer Engineering, [Monroe Community College](https://www.monroecc.edu/), 08/2017--05/2019
 * M.M., Jazz Studies and Double Bass, [Manhattan School of Music](https://www.msmnyc.edu/), 08/2015--05/2017
 * B.M., Jazz Studies and Double Bass, [Eastman School of Music](https://www.esm.rochester.edu/), 08/2009--05/2013
 
@@ -25,6 +25,10 @@ Title: Resume
 
 ## Relevant Coursework
 
+* Computer Science I, II
+* Embedded Systems
+* Control Systems
+* Communication Systems
 * Random Signals and Noise
 * Digital Signal Processing
 * Machine Intelligence
