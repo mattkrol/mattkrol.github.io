@@ -3,7 +3,7 @@ Title: Resume
 ## Education
 
 * B.S./M.S., Electrical Engineering, [Rochester Institute of Technology](https://www.rit.edu/), 08/2019--08/2022
-* Coursework, Computer Engineering, [Monroe Community College](https://www.monroecc.edu/), 08/2017--05/2019
+    * M.S. Thesis: [Low-Rank Clustering via LP1-PCA](https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=12337&context=theses)
 * M.M., Jazz Studies and Double Bass, [Manhattan School of Music](https://www.msmnyc.edu/), 08/2015--05/2017
 * B.M., Jazz Studies and Double Bass, [Eastman School of Music](https://www.esm.rochester.edu/), 08/2009--05/2013
 
@@ -14,14 +14,13 @@ Title: Resume
 * Intermediate
     * Verilog, VHDL, Quartus, ModelSim, Bash, Latex, Git, C++, Slurm, Linux, MATLAB
 * Advanced
-    * C, Python (NumPy, SciPy, Matplotlib, CVXPY, scikit-learn, PyTorch)
+    * C, Python (NumPy, SciPy, Pandas, Matplotlib, scikit-learn, CVXPY, PyTorch)
 
 ## Research Areas
 
 * Subspace Clustering
-* LP1-Norm Principal Component Analysis
-* High Dimensional Clustering
-* Tensor Methods for Continual Learning in Convolutional Neural Networks
+* Robust Principal Component Analysis
+* Continual/Incremental Learning
 
 ## Relevant Coursework
 
@@ -42,8 +41,11 @@ Title: Resume
 
 ## Work Experience
 
-* Graduate Research Assistant, [RIT MILOS LAB](https://sites.google.com/view/miloslab/), 01/2020--Present
-* Summer Research Intern, [AFRL Information Directorate](https://www.afrl.af.mil/RI/), 05/2022--08/2022
+* Product Development Engineer II, [Advanced Micro Devices (AMD)](https://www.amd.com/en/), 09/2022--Present
+* Machine Learning Research Intern, [AFRL Information Directorate](https://www.afrl.af.mil/RI/), 05/2022--08/2022
+    * Researched and developed techniques for continual learning that utilize tensor methods.
+* Graduate Research Assistant, RIT MILOS Lab, 01/2021--05/2022
+    * Worked on research in robust principal component anaylsis, subspace clustering, and continual learning under the supervision of Dr. Panos Markopoulos.
 * Applications Engineering Intern, [Texas Instruments](https://www.ti.com/), 05/2021--08/2021
     * Developed web-based training material for the following C2000 microcontroller peripherals: ePWM, eCAP, DMA, CLA, and SDFM.
 * Advanced Programming Teaching Assistant, [Rochester Institute of Technology](https://www.rit.edu/), 08/2020--12/2020
@@ -54,13 +56,11 @@ Title: Resume
     * Developed a Python program to mine data from online support forums and manage an SQL database.
 * Math Tutor, [Rochester Institute of Technology](https://www.rit.edu/), 08/2019--12/2020
     * Assist students with their work in calculus, linear algebra, differential equations, and physics.
-* Bass Faculty Member, [Camp Encore/Coda](https://www.encore-coda.com/), 06/2016--07/2016
-    * Gave private bass lessons, coached small ensembles, taught music composition, and performed in faculty concerts.
 
 ## Awards
 
 * Trustee Scholarship, [Rochester Institute of Technology](https://www.rit.edu/), 2019--2022
-* Dean's List, [Rochester Institute of Technology](https://www.rit.edu/), 2019--Present
+* Dean's List, [Rochester Institute of Technology](https://www.rit.edu/), 2019--2022
 * Howard Hanson Scholarship, [Eastman School of Music](https://www.esm.rochester.edu/), 2009--2013
 * Rochester International Jazz Festival Scholarship, [Eastman School of Music](https://www.esm.rochester.edu/), 2009--2013
 
