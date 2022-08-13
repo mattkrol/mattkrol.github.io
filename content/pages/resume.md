@@ -3,7 +3,7 @@ Title: Resume
 ## Education
 
 * B.S./M.S., Electrical Engineering, [Rochester Institute of Technology](https://www.rit.edu/), 08/2019--08/2022
-    * M.S. Thesis: [Low-Rank Clustering via LP1-PCA](https://scholarworks.rit.edu/cgi/viewcontent.cgi?article=12337&context=theses)
+    * M.S. Thesis: [Low-Rank Clustering via LP1-PCA](https://scholarworks.rit.edu/theses/11201/)
 * M.M., Jazz Studies and Double Bass, [Manhattan School of Music](https://www.msmnyc.edu/), 08/2015--05/2017
 * B.M., Jazz Studies and Double Bass, [Eastman School of Music](https://www.esm.rochester.edu/), 08/2009--05/2013
 
