@@ -41,7 +41,7 @@ Title: Resume
 
 ## Work Experience
 
-* Product Development Engineer II, [Advanced Micro Devices (AMD)](https://www.amd.com/en/), 09/2022--Present
+* Reliability Modeling Engineer, [Advanced Micro Devices (AMD)](https://www.amd.com/en/), 09/2022--Present
 * Machine Learning Research Intern, [AFRL Information Directorate](https://www.afrl.af.mil/RI/), 05/2022--08/2022
     * Researched and developed techniques for continual learning that utilize tensor methods.
 * Graduate Research Assistant, RIT MILOS Lab, 01/2021--05/2022
@@ -55,7 +55,7 @@ Title: Resume
 * Applications Engineering Intern, [Texas Instruments](https://www.ti.com/), 06/2020--08/2020
     * Developed a Python program to mine data from online support forums and manage an SQL database.
 * Math Tutor, [Rochester Institute of Technology](https://www.rit.edu/), 08/2019--12/2020
-    * Assist students with their work in calculus, linear algebra, differential equations, and physics.
+    * Assisted students with their work in calculus, linear algebra, differential equations, and physics.
 
 ## Awards
 
