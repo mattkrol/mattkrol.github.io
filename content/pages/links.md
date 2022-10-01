@@ -5,9 +5,9 @@ Title: Links
 * Code
     * [GitHub](https://github.com/kolazojar)
 * Social
-    * [Linkedin](https://www.linkedin.com/in/matt-krol-a586ab249)
+    * [Linkedin](https://linkedin.com/in/matt-krol-a586ab249)
 * Music
-    * [MM Recital](https://mattkrol.bandcamp.com/releases)
+    * [M.M. Recital](https://mattkrol.bandcamp.com/releases)
     * [Killtet](https://thekilltet.bandcamp.com/)
     * [Colossus](https://colossusjazz.bandcamp.com/)
     * [Grey Light](https://greylightband.bandcamp.com/)
